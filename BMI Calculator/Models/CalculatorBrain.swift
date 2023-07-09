@@ -7,17 +7,31 @@
 //
 
 import Foundation
+import UIKit
 
 struct CalculatorBrain {
 	
-	var bmi: Float = 0.0
-	
-	mutating func calculateBMI(height: Float, weight: Float) {
-		bmi = weight / (height * height)
-	}
+	var bmi: BMI?
 	
 	func getBMIValue() -> String {
-		let bmiTo1DecimalPlace = String(format: "%.1f", bmi)
+		let bmiTo1DecimalPlace = String(format: "%.1f", bmi?.value ?? 0.0)
 		return bmiTo1DecimalPlace
 	}
+
+	
+	mutating func calculateBMI(height: Float, weight: Float) {
+		let bmiValue = weight / (height * height)
+		bmi = BMI(value: bmiValue, advice: <#T##String#>, color: <#T##UIColor#>)
+		
+		func getAdvice() {
+			if bmiValue < 18.5{
+				print("Underweight")
+			}else if bmiValue < 24.9 {
+				print("Normal")
+			}else {
+				print("OverWeight")
+		}
+		}
+	}
+	
 }
